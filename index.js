@@ -109,7 +109,7 @@ inquirer
   function writeToFile(data){
     fs.writeFile('./README.md', 
     
-    "# " + data.title + "\n\n" +
+    "\n" + "# " + data.title + "\n\n" +
     "## Description " + "\n" +
      data.motivation + "\n" +   
      data.build + "\n" + 
