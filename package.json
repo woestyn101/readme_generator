@@ -1,5 +1,6 @@
 {
   "name": "readme_generator",
+  "type": "module",
   "version": "1.0.0",
   "description": "This is a readme generator ",
   "main": "index.js",
@@ -7,5 +8,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Marius Du Plooy",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "inquirer": "^9.2.12"
+  }
 }
