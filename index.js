@@ -66,7 +66,7 @@ inquirer
         name: 'license',
         message: "Choose a license:",
         choices: ['Apache License 2.0',
-             'GNU General Public License v3.0 ', 
+             'GNU General Public License v3.0', 
             'MIT License',
             'Mozilla Public License 2.0',
             'Boost Software License 1.0'],
@@ -96,6 +96,7 @@ inquirer
     console.log(answers.title);
     console.log(typeof(answers));
       writeToFile(answers);
+      writeSomething(answers);
   })
   .catch((error) => {
     if (error.isTtyError) {
@@ -136,4 +137,65 @@ inquirer
     } );
   }
 
-  
+   
+
+  function writeSomething(mydata) {
+
+    var apacheBadge = "![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)";
+
+    var gnuPublicBadge = "![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)";
+
+    var mitBadge = "![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)"
+
+    var mozillaBadge = "![License: MPL 2.0](https://img.shields.io/badge/License-MPL_2.0-brightgreen.svg)";
+
+    var boostBadge = "![License](https://img.shields.io/badge/License-Boost_1.0-lightblue.svg)";
+
+    if (mydata.license === "Apache License 2.0"){
+        console.log("Apache");
+        addBadge(apacheBadge);
+    }else if (mydata.license === "GNU General Public License v3.0"){
+    console.log("public");
+    addBadge(gnuPublicBadge);
+    }
+    else if (mydata.license === "MIT License"){
+        console.log("MIT");
+        addBadge(mitBadge);
+        }
+    else if (mydata.license === "Mozilla Public License 2.0"){
+            console.log("Mozilla");
+            addBadge(mozillaBadge);
+            }
+    else{
+        console.log("Boost");
+        addBadge(boostBadge);
+    }
+
+
+
+
+    console.log(mydata.license);
+
+        function addBadge(badge1){
+            fs.readFile('./README.md', 'utf8', (err, data1) => {
+                if (err) {
+                  throw err;
+                }
+              
+                // Combine the new text with the existing content
+                const updatedContent = badge1 + data1;
+              
+                // Write the updated content back to the file
+                fs.writeFile('./README.md', updatedContent, 'utf8', (err) => {
+                  if (err) {
+                    throw err;
+                  }
+                  console.log('Text added to the beginning of the file.');
+                });
+              });
+
+
+        }
+
+    
+  }
