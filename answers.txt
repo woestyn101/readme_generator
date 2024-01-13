@@ -1,0 +1,48 @@
+1. What is the title?
+
+README Generator
+
+2. What was your motivation?
+
+To create a professional READMe file template
+
+3. Why did you build this project?
+ 
+ which can be used for future README submissions.
+
+ 4. What problem does it solve?
+
+A README file should be included in every repository.
+
+5. What did you learn?
+
+I learned how to work with node.js and to use the inquirer package.
+
+6. What are the installation instructions?
+
+Install the dependencies in the package.json file and then run the application with node.js. A readme file will be created upon answering all the questions.
+
+7. Walkthrough Video
+
+https://drive.google.com/file/d/1pIuGK3jQAgUx_Nr1dcStAk1rtipgtKwR/view?usp=sharing
+
+8. What is the usage of this project?
+
+This application will enable a user to quickly create a professional README for a new project
+
+9. Any credits/contributions to this project?
+
+https://www.youtube.com/watch?v=Qf5EXOyGRxw
+
+10. Choose a license
+
+11. What is you github username:
+
+woestyn101
+
+12. What is your github profile link?
+
+https://github.com/woestyn101
+
+13. What is your email address?
+woestyn101@gmail.com
