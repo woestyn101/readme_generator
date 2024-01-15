@@ -61,6 +61,7 @@ inquirer
         message: "Any credits/contributions to this project?",
         default: ""
     },
+   
     {
         type: 'list',
         name: 'license',
