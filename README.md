@@ -1,39 +1,57 @@
-![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
-# 1
+# README Generator
 
 ## Description 
-1
-1
-1
-1
+To create a professional READMe file from a template.
+which can be used for future README submissions.
+A README file should be included in every repository.
+I learned how to work with node.js and to use the inquirer package.
 
 ## Table of Contents: 
 
 [Installation](#Installation)
+[Video Link](#video)
 [Usage](#usage)
 [Credits](#credits)
-[License](#license)
 [Questions](#questions)
+[License](#license)
 
 ## Installation
 
-1
+- Clone repository to local machine
+- Edit package.json file by adding "type": "module" in 3rd line
+- Make sure import inquirer from 'inquirer'; is added at top of file
+- Import fs at top of file: import * as fs from'fs';
+- Create README.md file by running node index.js at terminal
+- Run npm i inquirer
+- Run npm init
+
+
+## Video
+
+https://drive.google.com/file/d/1pIuGK3jQAgUx_Nr1dcStAk1rtipgtKwR/view?usp=sharing
+
 
 ## Usage
 
-1
+This application will enable a user to quickly create a professional README for a new project.
+
+
 
 ## Credits
 
-1
+- https://www.youtube.com/watch?v=Qf5EXOyGRxw
+- https://www.youtube.com/watch?v=CfS6eOBe8AY
+- https://www.npmjs.com/package/inquirer
+- https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
+- https://gist.github.com/lukas-h/2a5d00690736b4c3a7ba
+## Questions
+
+Github Username: woestyn101
+Github profile: https://github.com/woestyn101
+email: woestyn101@gmail.com
 
 ## License
 
 MIT License
-
-## Questions
-
-1
-1
-1

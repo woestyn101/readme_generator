@@ -272,7 +272,7 @@ function addQuestions(){
    console.log(answers.githubProfile);
    console.log(answers.email);
     fs.appendFile('./README.md',
-    "## Questions" + "\n\n" + 
+    "\n\n" +  "## Questions" + "\n\n" + 
      "Github Username: " +  answers.username + "\n" + 
      "Github profile: " + answers.githubProfile + "\n" +
      "email: " + answers.email, function (err) {
