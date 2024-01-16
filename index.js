@@ -2,14 +2,15 @@ import inquirer from 'inquirer';
 //var inquirer = require('inquirer');
 import * as fs from'fs';
 
+//creating callback functions
 
-
-firstQuestions();
-
+firstQuestions(function(){
+    askInstallation();
+})
 
 // first Questions for title and description
 
-function firstQuestions(){
+function firstQuestions(callback){
     inquirer
   .prompt([
     
@@ -47,12 +48,9 @@ function firstQuestions(){
   ])
   .then((data) => {
    
-   console.log(data.title);
-   console.log(data.motivation);
-   console.log(data.build);
-   fs.writeFile('./README.md',
+    fs.writeFile('./README.md',
    "\n\n" + "# " + data.title + "\n\n" +
-   "## Description " + "\n" +
+   "## Description " + "\n\n" +
     data.motivation + "\n" +   
     data.build + "\n" + 
     data.solve + "\n" + 
@@ -61,11 +59,11 @@ function firstQuestions(){
     "[Installation](#Installation)" + "\n" + 
     "[Video Link](#video)" + "\n" + 
     "[Usage](#usage)" + "\n" + 
-    "[Credits](#credits)" + "\n" +     
-    "[Questions](#questions)" + "\n" + 
-    "[License](#license)" + "\n\n", () => {
-    console.log("file was written");
-    askInstallation();   
+    "[Credits](#credits)" + "\n" +       
+    "[License](#license)" + "\n" +
+    "[Questions](#questions)" + "\n\n" , () => {
+    //console.log("file was written");
+    callback();   
    
    
 } );
@@ -109,9 +107,11 @@ function askInstallation(){
         if (answers2.askAgain) {
            askInstallation();
         }else{
-            console.log("Installation instructions:", installationArray.join(','));
             looping(installationArray);
-            addVideo();
+            addVideo(function(){
+                addUsage();
+            });
+           
           
         }
         
@@ -120,7 +120,46 @@ function askInstallation(){
     
 }
 
-// add usage question
+// looping through installaion array and outputting to file
+function looping(array){
+    fs.appendFile('./README.md', "## Installation"+ "\n\n", function (err) {
+        if (err) throw err;
+           
+      });
+
+    for (var i = 0; i < array.length; i++){
+        fs.appendFile('./README.md', "- " + array[i] + "\n", function (err) {
+            if (err) throw err;
+                    
+          });
+    }
+}
+
+// video link question
+
+function addVideo(callback){
+    inquirer.prompt(
+        {
+            type: 'input',
+            name: 'video',
+            message: "Provide a video link?",
+            default: ""
+        },
+    )
+    .then((answers) => {
+       fs.appendFile('./README.md', "\n" + "## Video" + "\n\n" + answers.video + "\n", function (err) {
+        if (err) throw err;
+        // add next function
+        callback();
+          
+      
+      });
+
+    })
+}
+
+
+
 
 function addUsage(){
     inquirer.prompt(
@@ -132,40 +171,15 @@ function addUsage(){
         },
     )
     .then((answers) => {   
-    fs.appendFile('./README.md', "\n\n" + "## Usage" + "\n\n" + answers.usage + "\n\n", function (err) {
+    fs.appendFile('./README.md', "\n" + "## Usage" + "\n\n" + answers.usage + "\n\n", function (err) {
         if (err) throw err;
         // calling next function
-           askContribution();
+         askContribution();
       
       });
 
     })
 }
-
-// video link question
-
-function addVideo(){
-    inquirer.prompt(
-        {
-            type: 'input',
-            name: 'video',
-            message: "Provide a video link?",
-            default: ""
-        },
-    )
-    .then((answers) => {
-       fs.appendFile('./README.md', "\n\n" + "## Video" + "\n\n" + answers.video + "\n", function (err) {
-        if (err) throw err;
-        // add next function
-           addUsage();
-      
-      });
-
-    })
-}
-
-
-
 
 // asking and outputting contribution questions:
 
@@ -197,35 +211,21 @@ function askContribution(){
         if (answers2.askAgain) {
            askContribution();
         }else{
-            console.log("Your contributions:", contributionArray.join(','));
+            // console.log("Your contributions:", contributionArray.join(','));
             loopingContribution(contributionArray);
             
        // call next function
-            addQuestions();
+           // addQuestions();
+           addLicense();
           
         }
 
     });
 }
 
-  // looping through installaion array and outputting to file
-function looping(array){
-    fs.appendFile('./README.md', "## Installation"+ "\n\n", function (err) {
-        if (err) throw err;
-           
-      });
-
-    for (var i = 0; i < array.length; i++){
-        fs.appendFile('./README.md', "- " + array[i] + "\n", function (err) {
-            if (err) throw err;
-                    
-          });
-    }
-}
-
 // looping through contribution array and outputting to file
 function loopingContribution(array){
-    fs.appendFile('./README.md', "\n\n" + "## Credits" + "\n\n", function (err) {
+    fs.appendFile('./README.md',"## Credits" + "\n\n", function (err) {
         if (err) throw err;
        
       
@@ -239,52 +239,6 @@ function loopingContribution(array){
           });
     }
 }
-
-
-// add questions for github username, profile and email
-  
-function addQuestions(){
-    inquirer.prompt(
-        [
-        {
-            type: 'input',
-            name: 'username',
-            message: "What is you github username?",
-            default: ""
-        },
-        {
-            type: 'input',
-            name: 'githubProfile',
-            message: "What is your github profile link?",
-            default: ""
-        },
-        {
-            type: 'input',
-            name: 'email',
-            message: "What is your email address?",
-            default: ""
-        },
-    ]
-        
-    )
-    .then((answers) => {
-   console.log(answers.username);
-   console.log(answers.githubProfile);
-   console.log(answers.email);
-    fs.appendFile('./README.md',
-    "\n\n" +  "## Questions" + "\n\n" + 
-     "Github Username: " +  answers.username + "\n" + 
-     "Github profile: " + answers.githubProfile + "\n" +
-     "email: " + answers.email, function (err) {
-        if (err) throw err;
-       // add next function
-      addLicense();
-      
-      });
-
-    })
-}
-
 
 //add license question
 
@@ -303,10 +257,11 @@ function addLicense(){
         },
     )
     .then((answers) => {
-       fs.appendFile('./README.md', "\n\n" + "## License" + "\n\n" + answers.license + "\n", function (err) {
+       fs.appendFile('./README.md', "\n" + "## License" + "\n\n" + answers.license + "\n", function (err) {
         if (err) throw err;
       
        getLicense(answers);
+      
       
       });
 
@@ -337,7 +292,9 @@ function getLicense(mydata) {
            addBadge(gnuPublicBadge);
     }
     else if (mydata.license === "MIT License"){
-           addBadge(mitBadge);
+           addBadge(mitBadge, function() {
+            addQuestions();
+           });
         }
     else if (mydata.license === "Mozilla Public License 2.0"){
             addBadge(mozillaBadge);
@@ -346,28 +303,74 @@ function getLicense(mydata) {
             addBadge(boostBadge);
     }
 
-      // adding a badge to the top of the page  
-
-        function addBadge(badge1){
-            fs.readFile('./README.md', 'utf8', (err, data1) => {
-                if (err) {
-                  throw err;
-                }
-              
-                // Combine the new text with the existing content
-                const badgeAdded = badge1 + data1;
-              
-                // Write the updated content back to the file
-                fs.writeFile('./README.md', badgeAdded, 'utf8', (err) => {
-                  if (err) {
-                    throw err;
-                  }
-                  console.log('Badge added to the beginning of the file.');
-                });
-              });
-
-
-        }
-
-    
+      
+     
   }
+
+  // adding a badge to the top of the page  
+
+  function addBadge(badge1, callback){
+    fs.readFile('./README.md', 'utf8', (err, data1) => {
+        if (err) {
+          throw err;
+        }
+      
+        // Combine the new text with the existing content
+        const badgeAdded = badge1 + data1;
+      
+        // Write the updated content back to the file
+        fs.writeFile('./README.md', badgeAdded, 'utf8', (err) => {
+          if (err) {
+            throw err;
+          }
+         // console.log('Badge added to the beginning of the file.');
+        });
+      });
+
+      callback();
+}
+
+
+  // add questions for github username, profile and email
+  
+function addQuestions(){
+    inquirer.prompt(
+        [
+        {
+            type: 'input',
+            name: 'username',
+            message: "What is you github username?",
+            default: ""
+        },
+        {
+            type: 'input',
+            name: 'githubProfile',
+            message: "What is your github profile link?",
+            default: ""
+        },
+        {
+            type: 'input',
+            name: 'email',
+            message: "What is your email address?",
+            default: ""
+        },
+    ]
+        
+    )
+    .then((answers) => {
+//    console.log(answers.username);
+//    console.log(answers.githubProfile);
+//    console.log(answers.email);
+    fs.appendFile('./README.md',
+    "\n" + "## Questions" + "\n\n" + 
+     "Github Username: " +  answers.username + "\n" + 
+     "Github profile: " + answers.githubProfile + "\n" +
+     "email: " + answers.email, function (err) {
+        if (err) throw err;
+       // add next function
+     
+      
+      });
+
+    })
+}
