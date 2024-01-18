@@ -286,10 +286,14 @@ function getLicense(mydata) {
     //check which license has been selected
 
     if (mydata.license === "Apache License 2.0"){
-           addBadge(apacheBadge);
+           addBadge(apacheBadge, function() {
+            addQuestions();
+           });
     }else if (mydata.license === "GNU General Public License v3.0"){
    
-           addBadge(gnuPublicBadge);
+           addBadge(gnuPublicBadge, function() {
+            addQuestions();
+           });
     }
     else if (mydata.license === "MIT License"){
            addBadge(mitBadge, function() {
@@ -297,10 +301,14 @@ function getLicense(mydata) {
            });
         }
     else if (mydata.license === "Mozilla Public License 2.0"){
-            addBadge(mozillaBadge);
+            addBadge(mozillaBadge, function() {
+                addQuestions();
+               });
             }
     else{
-            addBadge(boostBadge);
+            addBadge(boostBadge, function() {
+                addQuestions();
+               });
     }
 
       
